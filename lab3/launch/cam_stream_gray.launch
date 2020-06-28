@@ -1,0 +1,22 @@
+<launch>
+	<node name="cv_camera" pkg="cv_camera" type="cv_camera_node" output="screen" >
+		<param name="rate" type="double" value="10" />
+		<param name="image_width" type="int" value="360" />
+		<param name="image_height" type="int" value="240" />
+	</node>
+
+	<node name="CamStream" pkg="lab3" type="cam_stream_gray_2.py" output="screen" >
+	</node>
+
+	<node name="image_view_origin" pkg="image_view" type="image_view" respawn="false" output="screen">
+		<remap from="image" to="/cv_camera/image_raw"/>
+		<param name="autosize" value="true" />
+		<param name="window_name" value="Origin Image" />
+	</node>
+
+	<node name="image_view_gray" pkg="image_view" type="image_view" respawn="false" output="screen">
+		<remap from="image" to="/CamStream/image"/>
+		<param name="autosize" value="true" />
+		<param name="window_name" value="Gray Image" />
+	</node>
+</launch>

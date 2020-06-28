@@ -1,0 +1,22 @@
+<launch>
+	<node pkg="car_monitor" name="webserver" type="webserver.py" args="8000" />
+	
+	<include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+		<arg name="port" value="9000" />
+	</include>
+	
+	<node name="web_video_server" pkg="web_video_server" type="web_video_server" >
+		<param name="port" type="int" value="10000" />
+	</node>
+	
+	<!--
+	<node name="cv_camera" pkg="cv_camera" type="cv_camera_node" output="screen" >
+		<param name="rate" type="double" value="10" />
+		<param name="image_width" type="int" value="360" />
+		<param name="image_height" type="int" value="240" />
+	</node>
+	-->
+	
+	<!-- run another launch file -->
+	<!-- <include file="$(find opencv_red)/launch/cam_stream_red.launch" /> -->
+</launch>
